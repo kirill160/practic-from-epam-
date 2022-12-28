@@ -33,6 +33,8 @@ public class ListBook {
 
     }
 
+
+
     private List<Book> otherListBooks() {
         List<Book> otherListBooks = new ArrayList<>();
 
@@ -60,34 +62,40 @@ public class ListBook {
         return otherListBooks;
     }
 
-    public void printListBooksOfSetAuthor(String author) throws  BookNotFoundException {
+    public List<Book> listFilterByAuthor(String author) throws  BookNotFoundException {
         if (author == null) {
             throw new BookNotFoundException("author is null");
         }
+        List<Book> filteredList = new ArrayList<>();
         for (Book book : getBookList()) {
             if (author.equals(book.getAuthor())) {
-                System.out.println(book);
+                filteredList.add(book);
             }
         }
+        return filteredList;
     }
 
-    public void printListOfBooksPublishedByAGivenPublisher(String givenPublishingHouse) throws BookNotFoundException {
+    public List<Book> filteredListByPublisher(String givenPublishingHouse) throws BookNotFoundException {
         if (givenPublishingHouse == null) {
             throw new BookNotFoundException("publishing house is null");
         }
+        List<Book> filteredList = new ArrayList<>();
         for (Book book : getBookList()) {
             if (givenPublishingHouse.equals(book.getPublishingHouse())) {
-                System.out.println(book);
+               filteredList.add(book);
             }
         }
+        return filteredList;
+
     }
 
-    public void printListOfBooksReleasedAfterAGivenYear(int givenYear) {
+    public List<Book> filterListIssuedAfterAGivenYear(int givenYear) {
+        List<Book> filterList = new ArrayList<>();
         for (Book book : getBookList()) {
             if (book.getYearOfPublishing() > givenYear) {
-                System.out.println(book);
+                filterList.add(book);
             }
         }
-
+        return filterList;
     }
 }
