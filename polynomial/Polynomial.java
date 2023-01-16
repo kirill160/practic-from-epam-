@@ -9,21 +9,22 @@ import java.util.List;
  */
 public class Polynomial {
     private int value;
-    private int powerX;
+    private int valueX;
     private int n;
     private int result;
 
 
-    public Polynomial(int value, int powerX, int n) {
+    public Polynomial(int value, int valueX, int n) {
         this.value = value;
-        this.powerX = powerX;
+        this.valueX = valueX;
         this.n = n;
     }
 
-    public Polynomial(int result) {
+    private Polynomial(int result) {
         this.result = result;
     }
-    public Polynomial(){
+
+    public Polynomial() {
 
     }
 
@@ -36,11 +37,11 @@ public class Polynomial {
     }
 
     public int getPowerX() {
-        return powerX;
+        return valueX;
     }
 
-    public void setPowerX(int powerX) {
-        this.powerX = powerX;
+    public void setPowerX(int valueX) {
+        this.valueX = valueX;
     }
 
     public int getN() {
@@ -53,24 +54,83 @@ public class Polynomial {
 
     public Polynomial additional(Polynomial polynomial2) {
         List<Integer> numbersPolynomial = new ArrayList<>();
-        int res = 0;
+        int sum = 0;
+        int counterPower1 = 0;
+        int counterPower2 = 0;
+        for (int i = 0; i <= n; i++) {
+            int resultPower = (int) Math.pow(valueX, counterPower1++);
+            int resultPower2 = (int) Math.pow(polynomial2.valueX,counterPower2++);
 
-        for (int i = 0; i < n; i++) {
-            powerX = (int) Math.pow(powerX, i);
-            polynomial2.setPowerX((int) Math.pow(polynomial2.getPowerX(), i));
-            numbersPolynomial.add(i, (powerX * value) + polynomial2.getPowerX() * polynomial2.getValue());
-            res += numbersPolynomial.get(i);
+            numbersPolynomial.add((resultPower * value) + resultPower2 * polynomial2.value);
+            sum += numbersPolynomial.get(i);
         }
 
-        return new Polynomial(res);
+        return new Polynomial(sum);
 
     }
+
+    public Polynomial subtraction(Polynomial polynomial2) {
+        List<Integer> numbersPolynomial = new ArrayList<>();
+        int sum = 0;
+        int counterPower1 = 0;
+        int counterPower2 = 0;
+        for (int i = 0; i <= n; i++) {
+            int calculationPowerNumber = (int) Math.pow(valueX, counterPower1++);
+            int calculationPowerNumber2 = (int) Math.pow(polynomial2.valueX, counterPower2++);
+            numbersPolynomial.add(calculationPowerNumber * value - calculationPowerNumber2 * polynomial2.value);
+            sum += numbersPolynomial.get(i);
+        }
+
+        return new Polynomial(sum);
+    }
+
+    public Polynomial multiplication(Polynomial polynomial2) {
+        List<Integer> numbersPolynomial = new ArrayList<>();
+        List<Integer> numbersPolynomial2 = new ArrayList<>();
+        int sum = 0;
+        int counterPower = 0;
+        int counterPower2 = 0;
+
+        for (int i = 0; i <= n; i++) {
+           numbersPolynomial.add(value);
+           numbersPolynomial2.add(polynomial2.value);
+            }
+
+        for (Integer numberPolynomial1 : numbersPolynomial) {
+            for (Integer numberPolynomial2 : numbersPolynomial2) {
+                int res = numberPolynomial1 * numberPolynomial2 + numberPolynomial1 * (int) Math.pow(valueX, counterPower++ + counterPower2++);
+                sum += res;
+            }
+        }
+
+     return new Polynomial(sum);
+    }
+    public Polynomial division(Polynomial polynomial2){
+        List<Integer> numbersPolynomial = new ArrayList<>();
+        List<Integer> numbersPolynomial2 = new ArrayList<>();
+        int sum = 0;
+        int counterPower1 = 0;
+        int counterPower2 = 0;
+        for (int i = 0; i <= n; i++) {
+            int resultPower = (int) Math.pow(valueX, ++counterPower1);
+            int resultPower2 = (int) Math.pow(polynomial2.valueX, ++counterPower2);
+            numbersPolynomial.add(resultPower * value);
+            numbersPolynomial2.add(resultPower2 * polynomial2.value);
+        }
+        for (int i = numbersPolynomial.size() - 1; i > 0 ; i--) {
+            int res = numbersPolynomial.get(i) / numbersPolynomial2.get(i) * (int) Math.pow(valueX, counterPower1 - counterPower2);
+            sum += res;
+        }
+        return new Polynomial(sum);
+    }
+
+
 
     @Override
     public String toString() {
         return "Polynomial{" +
                 "value=" + value +
-                ", powerX=" + powerX +
+                ", valueX=" + valueX +
                 ", n=" + n +
                 ", result=" + result +
                 '}';
