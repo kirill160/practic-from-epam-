@@ -92,21 +92,26 @@ public class Interval {
     }
 
     private void createNumberIntervalTwo(Interval interval2) throws IntervalNotFoundException {
-
+        if (interval2 == null) {
+            interval2 = new Interval();
+        }
         for (int i = interval2.initialValueOfSegment; i < interval2.segmentEndValue; i++) {
-        if (interval2.initialValueOfSegment == 0 && interval2.segmentEndValue == 0) {
-            throw new IntervalNotFoundException("start and end value zero");
-        }
-        if (i >= interval2.pointA && i <= interval2.pointB) {
-            interval2.intervalValues.add(i);
+            if (interval2.initialValueOfSegment == 0 && interval2.segmentEndValue == 0) {
+                throw new IntervalNotFoundException("start and end value zero");
+            }
+            if (i >= interval2.pointA && i <= interval2.pointB) {
+                interval2.intervalValues.add(i);
 
+            }
         }
 
-    }
     }
 
     public Interval combiningIntervals(Interval interval2) throws IntervalNotFoundException {
         createNumberIntervalTwo(interval2);
+        if (interval2 == null) {
+            interval2 = new Interval();
+        }
         List<Integer> result = new ArrayList<>();
         result.addAll(intervalValues);
         for (int i = 0; i < intervalValues.size(); i++) {
@@ -120,6 +125,9 @@ public class Interval {
 
     public Interval intervalCrossing(Interval interval2) throws IntervalNotFoundException {
         createNumberIntervalTwo(interval2);
+        if (interval2 == null) {
+            interval2 = new Interval();
+        }
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < intervalValues.size(); i++) {
             if (intervalValues.get(i).equals(interval2.intervalValues.get(i))) {
