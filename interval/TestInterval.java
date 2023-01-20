@@ -8,6 +8,10 @@ public class TestInterval {
             intervals[i].createNumbersIntervals();
             System.out.println(intervals[i].combiningIntervals(interval2));
             System.out.println(intervals[i].intervalCrossing(interval2));
+            System.out.println(intervals[i].additionalIntervals(interval2));
+            System.out.println(intervals[i].subtractionIntervals(interval2));
+            System.out.println(intervals[i].divisionIntervals(interval2));
+            System.out.println(intervals[i].multiplicationIntervals(interval2));
 
         }
 

@@ -17,6 +17,7 @@ public class Interval {
     private int initialValueOfSegment;
     private int segmentEndValue;
     private List<Integer> intervalValues;
+    public static final int firstElementInterval = 0;
 
     public Interval(int pointA, int pointB, int initialValueOfSegment, int segmentEndValue) {
         this.pointA = pointA;
@@ -28,7 +29,9 @@ public class Interval {
 
     }
 
-    private Interval(List<Integer> intervalValues) {
+    private Interval(int pointA, int pointB, List<Integer> intervalValues) {
+        this.pointA = pointA;
+        this.pointB = pointB;
         this.intervalValues = intervalValues;
     }
 
@@ -86,9 +89,7 @@ public class Interval {
                 intervalValues.add(i);
 
             }
-
         }
-
     }
 
     private void createNumberIntervalTwo(Interval interval2) throws IntervalNotFoundException {
@@ -104,38 +105,127 @@ public class Interval {
 
             }
         }
-
     }
 
     public Interval combiningIntervals(Interval interval2) throws IntervalNotFoundException {
-        createNumberIntervalTwo(interval2);
         if (interval2 == null) {
             interval2 = new Interval();
         }
+        createNumberIntervalTwo(interval2);
+
         List<Integer> result = new ArrayList<>();
         result.addAll(intervalValues);
+
         for (int i = 0; i < intervalValues.size(); i++) {
             if (!intervalValues.get(i).equals(interval2.intervalValues.get(i))) {
                 result.add(interval2.intervalValues.get(i));
             }
 
         }
-        return new Interval(result);
+        return new Interval(intervalValues.get(0), intervalValues.size(), result);
     }
 
     public Interval intervalCrossing(Interval interval2) throws IntervalNotFoundException {
-        createNumberIntervalTwo(interval2);
         if (interval2 == null) {
             interval2 = new Interval();
         }
+        createNumberIntervalTwo(interval2);
+
         List<Integer> result = new ArrayList<>();
+
         for (int i = 0; i < intervalValues.size(); i++) {
             if (intervalValues.get(i).equals(interval2.intervalValues.get(i))) {
                 result.add(interval2.intervalValues.get(i));
             }
 
         }
-        return new Interval(result);
+        return new Interval(intervalValues.get(0), intervalValues.size(), result);
+    }
+
+    public Interval additionalIntervals(Interval interval2) throws IntervalNotFoundException {
+        createNumberIntervalTwo(interval2);
+        List<Integer> result = new ArrayList<>();
+
+        int firstValue = intervalValues.get(firstElementInterval) + interval2.intervalValues.get(firstElementInterval);
+        int lastValue = intervalValues.size() + interval2.intervalValues.size();
+
+        for (int i = firstValue; i < lastValue; i++) {
+            result.add(i);
+        }
+
+
+
+        return new Interval(firstValue, lastValue, result);
+    }
+
+    public Interval subtractionIntervals(Interval interval2) throws IntervalNotFoundException {
+        createNumberIntervalTwo(interval2);
+        List<Integer> result = new ArrayList<>();
+
+        int firstValue = intervalValues.get(firstElementInterval) - interval2.intervalValues.size();
+        int lastValue = intervalValues.size() - interval2.intervalValues.get(firstElementInterval);
+
+        for (int i = firstValue; i < lastValue; i++) {
+            result.add(i);
+        }
+
+
+        return new Interval(firstValue, lastValue, result);
+    }
+
+    public Interval multiplicationIntervals(Interval interval2) throws IntervalNotFoundException {
+        createNumberIntervalTwo(interval2);
+        List<Integer> listForCalculation = new ArrayList<>();
+        listForCalculation.add(Math.min(intervalValues.get(firstElementInterval) * interval2.intervalValues.get(firstElementInterval), intervalValues.get(firstElementInterval) * interval2.intervalValues.size()));
+        listForCalculation.add(Math.min(intervalValues.size() * interval2.intervalValues.get(firstElementInterval), intervalValues.size() * interval2.intervalValues.size()));
+        listForCalculation.add(Math.max(intervalValues.get(firstElementInterval) * interval2.intervalValues.get(firstElementInterval), intervalValues.get(firstElementInterval) * interval2.intervalValues.size()));
+        listForCalculation.add(Math.max(intervalValues.size() * interval2.intervalValues.get(firstElementInterval), intervalValues.size() * interval2.intervalValues.size()));
+
+        int resMin = 0;
+        for (Integer value : listForCalculation){
+            if(value < resMin){
+                resMin = value;
+            }
+        }
+        int resMax = 0;
+        for (Integer value : listForCalculation){
+            if(value > resMax){
+                resMax = value;
+            }
+        }
+        List<Integer> result = new ArrayList<>();
+        for (int i = resMin; i < resMax; i++) {
+            result.add(i);
+        }
+        return new Interval(resMin, resMax, result);
+    }
+
+    public Interval divisionIntervals(Interval interval2) throws IntervalNotFoundException {
+        createNumberIntervalTwo(interval2);
+        List<Integer> listForCalculation = new ArrayList<>();
+        listForCalculation.add(Math.min(intervalValues.get(firstElementInterval) / interval2.intervalValues.get(firstElementInterval), intervalValues.get(firstElementInterval) / interval2.intervalValues.size()));
+        listForCalculation.add(Math.min(intervalValues.size() * interval2.intervalValues.get(firstElementInterval), intervalValues.size() * interval2.intervalValues.size()));
+        listForCalculation.add(Math.max(intervalValues.get(firstElementInterval) / interval2.intervalValues.get(firstElementInterval), intervalValues.get(firstElementInterval) / interval2.intervalValues.size()));
+        listForCalculation.add(Math.max(intervalValues.size() * interval2.intervalValues.get(firstElementInterval), intervalValues.size() * interval2.intervalValues.size()));
+
+        int resMin = 0;
+        for (Integer value : listForCalculation){
+            if(value < resMin){
+                resMin = value;
+            }
+        }
+        int resMax = 0;
+        for (Integer value : listForCalculation){
+            if(value > resMax){
+                resMax = value;
+            }
+        }
+        List<Integer> result = new ArrayList<>();
+        for (int i = resMin; i < resMax; i++) {
+            result.add(i);
+        }
+
+        return new Interval(resMin, resMax, result);
     }
 
 
