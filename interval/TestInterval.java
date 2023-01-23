@@ -1,17 +1,22 @@
 package epam.practic.interval;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class TestInterval {
+
+
     public static void main(String[] args) throws IntervalNotFoundException {
-        Interval[] intervals = {new Interval(1, 7, 2, 6), new Interval(8,14,9,13), new Interval(10, 22, 17, 21)};
-        Interval interval2 = new Interval(8, 14, 9, 13);
-        for (int i = 0; i < intervals.length; i++) {
-            intervals[i].createNumbersIntervals();
-            System.out.println(intervals[i].combiningIntervals(interval2));
-            System.out.println(intervals[i].intervalCrossing(interval2));
-            System.out.println(intervals[i].additionalIntervals(interval2));
-            System.out.println(intervals[i].subtractionIntervals(interval2));
-            System.out.println(intervals[i].divisionIntervals(interval2));
-            System.out.println(intervals[i].multiplicationIntervals(interval2));
+        List<Interval> intervalList = new ArrayList<>(Arrays.asList(new Interval(1, 7), new Interval(8, 14), new Interval(20, 26)));
+        List<Interval> intervalList2 = new ArrayList<>(Arrays.asList(new Interval(2, 8), new Interval(9, 15), new Interval(21, 27)));
+        for (int i = 0; i < intervalList.size(); i++) {
+            System.out.println(intervalList.get(i).combiningIntervals(intervalList2.get(i)));
+            System.out.println(intervalList.get(i).intervalCrossing(intervalList2.get(i)));
+            System.out.println(intervalList.get(i).additionalIntervals(intervalList2.get(i)));
+            System.out.println(intervalList.get(i).subtractionIntervals(intervalList2.get(i)));
+            System.out.println(intervalList.get(i).divisionIntervals(intervalList2.get(i)));
+            System.out.println(intervalList.get(i).multiplicationIntervals(intervalList2.get(i)));
 
         }
 
