@@ -1,6 +1,6 @@
 package epam.practic.airplane.test;
 
-import epam.practic.airplane.Wing;
+import epam.practic.airplane.wing.Wing;
 import epam.practic.airplane.chassis.Chassis;
 import epam.practic.airplane.engine.Engine;
 import epam.practic.airplane.plane.Plane;
