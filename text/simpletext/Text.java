@@ -3,6 +3,8 @@ package epam.practic.text.simpletext;
 import epam.practic.text.sentence.Sentence;
 import epam.practic.text.word.Word;
 
+import java.util.Objects;
+
 public class Text {
     private Sentence sentence = new Sentence();
     private Word word = new Word();
@@ -34,5 +36,26 @@ public class Text {
     }
     public void printText(){
         System.out.println(sentence.createSentence());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Text)) return false;
+        Text text = (Text) o;
+        return Objects.equals(getSentence(), text.getSentence()) && Objects.equals(getWord(), text.getWord());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSentence(), getWord());
+    }
+
+    @Override
+    public String toString() {
+        return "Text{" +
+                "sentence=" + sentence +
+                ", word=" + word +
+                '}';
     }
 }
