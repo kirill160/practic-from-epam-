@@ -17,9 +17,6 @@ public class ChangeSymbolsText {
         //countWords();
         //printSymbols();
         //searchLetters();
-        System.out.println(System.identityHashCode(300));
-        System.out.println(System.identityHashCode(300));
-        System.out.println(System.identityHashCode(300));
 
 
 
